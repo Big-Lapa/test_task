@@ -2,37 +2,48 @@ package com.lapin.test_task.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.math.BigDecimal;
-import java.util.Date;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+@Table(name = "products", indexes = @Index(columnList = "price"))
+public class Product implements Serializable {
 
+    private static final long serialVersionUID = 63453822723859663L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
     private String name;
-    private BigDecimal price;
+
+    @NotNull
+    @Column(unique = true)
+    private String price;
+
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date date;
 
-    public Product() {
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public Product(String name, BigDecimal price, Date date) {
-        this.name = name;
-        this.price = price;
-        this.date = date;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,11 +55,11 @@ public class Product {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -58,5 +69,31 @@ public class Product {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(price, product.price) &&
+                Objects.equals(date, product.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, price, date);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", date=" + date +
+                '}';
     }
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Product Details</title>
+</head>
+<body>
+<h1>View product</h1>
+<a href="/products">Back to product List</a>
+<br/><br/>
+{{#produtcs}}
+<table border="0">
+    <tr>
+        <td>ID</td>
+        <td>:</td>
+        <td>{{products.id}}</td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>:</td>
+        <td>{{products.name}}</td>
+    </tr>
+    <tr>
+        <td>Price</td>
+        <td>:</td>
+        <td>{{products.price}}</td>
+    </tr>
+    <tr>
+        <td>Date</td>
+        <td>:</td>
+        <td>{{#products.date}}{{products.date}}{{/products.date}}</td>
+    </tr>
+</table>
+<br/><br/>
+{{#allowDelete}}
+<form action="/products/{{products.id}}/delete" method="POST">
+    Delete this product? <input type="submit" value="Yes"/>
+</form>
+{{/allowDelete}}
+{{^allowDelete}}
+<div>
+    <a href="/products/{{products.id}}/edit">Edit</a> |
+    <a href="/products/{{products.id}}/delete">Delete</a>
+</div>
+{{/allowDelete}}
+{{/products}}
+{{#errorMessage}}
+<div class="error">{{errorMessage}}</div>
+{{/errorMessage}}
+</body>
+</html>

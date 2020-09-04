@@ -1,51 +1,45 @@
+<!DOCTYPE HTML>
 <html>
 <head>
-    <title>Products</title>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        table, td, th {
-            border: 1px solid #999;
-            padding: 5px;
-        }
-    </style>
+    <meta charset="UTF-8"/>
+    <title>Product List</title>
 </head>
-
 <body>
-<div>
-    <form method="post">
-        <input type="text" name="name" placeholder="Name of product"/>
-        <input type="number" name="price" placeholder="Price">
-        <input type="date" name="date" placeholder="Date">
-        <button type="submit">Add</button>
-    </form>
-</div>
-<div>List of products</div>
-<form method="post" action="filter">
-    <input type="text" name="filter">
-    <button type="submit">Find</button>
-</form>
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Product name</th>
-        <th>Price</th>
-        <th>Date</th>
-    </tr>
+<h1>Product List</h1>
 
-    {{#product}}
-        <tr>
-            <td>{{id}}</td>
-            <td>{{name}}</td>
-            <td>{{price}}</td>
-            <td>{{date}}</td>
-        </tr>
-    {{/product}}
-</table>
 <div>
-    <a href="/">Main</a>
+    <nobr>
+        <a href="/products/add">Add Product</a> |
+        <a href="/">Back to Index</a>
+    </nobr>
+</div>
+<br/><br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Edit</th>
+        </tr>
+        {{#products}}
+        <tr>
+            <td><a href="/products/{{id}}">{{id}}</a></td>
+            <td><a href="/products/{{id}}">{{name}}</a></td>
+            <td><a href="/products/{{id}}">{{price}}</a></td>
+            <td>{{#date}}{{date}}{{/date}}</td>
+            <td><a href="/products/{{id}}/edit">Edit</a></td>
+        </tr>
+        {{/products}}
+    </table>
+</div>
+<br/><br/>
+<div>
+    <nobr>
+        {{#hasPrev}}<a href="/products?page={{prev}}">Prev</a>&nbsp;&nbsp;&nbsp;{{/hasPrev}}
+        {{#hasNext}}<a href="/products?page={{next}}">Next</a>{{/hasNext}}
+    </nobr>
 </div>
 </body>
 </html>
