@@ -3,6 +3,7 @@ package com.lapin.test_task.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ public class Product implements Serializable {
 
     @NotNull
     @Column(unique = true)
-    private String price;
+    private int price;
 
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -55,11 +56,11 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

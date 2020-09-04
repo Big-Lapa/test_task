@@ -1,6 +1,5 @@
 package com.lapin.test_task.controller;
 
-
 import com.lapin.test_task.service.ProductService;
 import com.lapin.test_task.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +54,7 @@ public class ProductController {
         } catch (Exception ex) {
             model.addAttribute("errorMessage", ex.getMessage());
         }
-        model.addAttribute("product", product);
+        model.addAttribute("products", product);
         return "product";
     }
 
@@ -63,24 +62,24 @@ public class ProductController {
     public String showAddProduct(Model model) {
         Product product = new Product();
         model.addAttribute("add", true);
-        model.addAttribute("product", product);
+        model.addAttribute("products", product);
 
         return "edit";
     }
 
     @PostMapping(value = "/products/add")
-    public String addProduct(Model model,  @RequestParam("date")
+    public String addProduct(Model model, @RequestParam("date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date,
                              @ModelAttribute("product") Product product) {
         try {
             Product newProduct = productService.save(product);
-            return "redirect:/products/";
+            return "redirect:/products";
         } catch (Exception ex) {
             String errorMessage = ex.getMessage();
             model.addAttribute("errorMessage", errorMessage);
 
             model.addAttribute("add", true);
-            return "products";
+            return "edit";
         }
     }
 
@@ -93,18 +92,18 @@ public class ProductController {
             model.addAttribute("errorMessage", ex.getMessage());
         }
         model.addAttribute("add", false);
-        model.addAttribute("product", product);
-        return "edit";
+        model.addAttribute("products", product);
+        return "product";
     }
 
     @PostMapping(value = {"/products/{id}/edit"})
     public String updateProduct(Model model,
                                 @PathVariable long id,
-                                @ModelAttribute("product") Product product) {
+                                @ModelAttribute("products") Product product) {
         try {
             product.setId(id);
             productService.update(product);
-            return "redirect:/products/" + String.valueOf(product.getId());
+            return "redirect:/products";
         } catch (Exception ex) {
             String errorMessage = ex.getMessage();
             model.addAttribute("errorMessage", errorMessage);
@@ -123,7 +122,7 @@ public class ProductController {
             model.addAttribute("errorMessage", ex.getMessage());
         }
         model.addAttribute("allowDelete", true);
-        model.addAttribute("product", product);
+        model.addAttribute("products", product);
         return "product";
     }
 

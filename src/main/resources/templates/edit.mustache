@@ -8,7 +8,7 @@
 <h1>{{#add}}Create new product:{{/add}}{{^add}}Edit product:{{/add}}</h1>
 <a href="/products">Back to product List</a>
 <br/><br/>
-<form action="{{#add}}/products/add{{/add}}{{^add}}/products/{{products.id}}/edit{{/add}}" name="product" method="POST">
+<form action="{{#add}}/products/add{{/add}}{{^add}}/products/{{products.id}}/edit{{/add}}" name="products" method="POST">
     <table border="0">
         {{#products.id}}
         <tr>
@@ -25,7 +25,8 @@
         <tr>
             <td>Price</td>
             <td>:</td>
-            <td><input type="number" name="price" value="{{#products.price}}{{products.price}}{{/products.price}}"/></td>
+            <td><input type="number" name="price" value="{{#products.price}}{{products.price}}{{/products.price}}"/>
+            </td>
         </tr>
         <tr>
             <td>Date</td>
