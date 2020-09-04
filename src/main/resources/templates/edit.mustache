@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{{#add}}Create new product{{/add}}{{^add}}Edit product{{/add}}</title>
+</head>
+<body>
+<h1>{{#add}}Create new product:{{/add}}{{^add}}Edit product:{{/add}}</h1>
+<a href="/products">Back to product List</a>
+<br/><br/>
+<form action="{{#add}}/products/add{{/add}}{{^add}}/products/{{products.id}}/edit{{/add}}" name="products" method="POST">
+    <table border="0">
+        {{#products.id}}
+        <tr>
+            <td>ID</td>
+            <td>:</td>
+            <td>{{products.id}}</td>
+        </tr>
+        {{/products.id}}
+        <tr>
+            <td>Name</td>
+            <td>:</td>
+            <td><input type="text" name="name" value="{{#products.name}}{{products.name}}{{/products.name}}"/></td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td>:</td>
+            <td><input type="number" name="price" value="{{#products.price}}{{products.price}}{{/products.price}}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Date</td>
+            <td>:</td>
+            <td><input type="date" name="date" value="{{#products.date}}{{products.date}}{{/products.date}}"/></td>
+        </tr>
+    </table>
+    <input type="submit" value="{{#add}}Create{{/add}}{{^add}}Update{{/add}}"/>
+</form>
+
+<br/>
+<div class="error">{{#errorMessage}}{{errorMessage}}{{/errorMessage}}</div>
+</body>
+</html>
